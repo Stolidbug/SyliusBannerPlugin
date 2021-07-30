@@ -3,11 +3,10 @@ declare(strict_types=1);
 
 namespace Black\SyliusBannerPlugin\Repository;
 
-use App\Entity\Channel\Channel;
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\Query\Parameter;
 use Sylius\Component\Channel\Model\ChannelInterface;
+use Doctrine\Persistence\ManagerRegistry;
 
 final class BannerRepository implements BannerRepositoryInterface
 {
@@ -19,6 +18,7 @@ final class BannerRepository implements BannerRepositoryInterface
     {
         $this->manager = $registry->getManagerForClass($class);
         $this->class = $class;
+
     }
 
     public function findBannerForChannel(string $code, ChannelInterface $channel)

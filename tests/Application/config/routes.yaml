@@ -1,9 +1,6 @@
-acme_sylius_example_shop:
-    resource: "@AcmeSyliusExamplePlugin/Resources/config/shop_routing.yml"
-    prefix: /{_locale}
-    requirements:
-        _locale: ^[a-z]{2}(?:_[A-Z]{2})?$
+black_sylius_banner_shop:
+  resource: "@BlackSyliusBannerPlugin/Resources/config/routes/shop.yml"
 
-acme_sylius_example_admin:
-    resource: "@AcmeSyliusExamplePlugin/Resources/config/admin_routing.yml"
-    prefix: /admin
+black_sylius_banner_admin:
+  resource: "@BlackSyliusBannerPlugin/Resources/config/routes/admin.yml"
+  prefix: /admin

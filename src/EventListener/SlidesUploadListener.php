@@ -26,6 +26,7 @@ final class SlidesUploadListener
     public function __construct(SlideUploaderInterface $uploader)
     {
         $this->uploader = $uploader;
+
     }
 
     public function uploadSlides(GenericEvent $event): void

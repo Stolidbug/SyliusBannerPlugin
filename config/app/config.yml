@@ -1,6 +1,6 @@
 parameters:
     black_banner.uploader.filesystem: "black_sylius_banner"
-        
+
 doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
@@ -30,7 +30,7 @@ liip_imagine:
             filters:
                 upscale: { min: [1200, 400] }
                 thumbnail: { size: [1200, 400], mode: inbound }
-                
+
 sylius_grid:
     templates:
         filter:

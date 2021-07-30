@@ -12,4 +12,9 @@ use Black\SyliusBannerPlugin\Compiler\ImagePass;
 final class BlackSyliusBannerPlugin extends Bundle
 {
     use SyliusPluginTrait;
+
+    public function getPath(): string
+    {
+        return \dirname(__DIR__);
+    }
 }

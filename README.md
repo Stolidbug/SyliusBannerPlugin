@@ -14,11 +14,31 @@ The following instructions are compatible with Bootstrap and Webpack Encore. Thi
 ## Installation
 
 1. Install [Sylius](https://docs.sylius.com/en/latest/book/installation/installation.html)
-2. Add the bundle and dependencies in your `composer.json`
+2.  Import the configuration
+
+```yaml
+# config/packages/sylius_banner.yaml
+imports:
+    - { resource: "@BlackSyliusBannerPlugin/Resources/config/app/config.yml" }
+```
+
+3. Import routing
+
+```yaml
+# config/routing/sylius_banner.yaml
+black_sylius_banner_shop:
+    resource: "@BlackSyliusBannerPlugin/Resources/config/routes/shop.yml"
+
+black_sylius_banner_admin:
+    resource: "@BlackSyliusBannerPlugin/Resources/config/routes/admin.yml"
+    prefix: /admin
+
+```
+4. Add the bundle and dependencies in your `composer.json`
 
 `composer require black/sylius-banner-plugin:^1.0.0@dev`
 
-3. Register the bundle:
+5. Register the bundle:
 
 ```php
 <?php
@@ -29,28 +49,6 @@ return [
     // ...
     Black\SyliusBannerPlugin\BlackSyliusBannerPlugin::class => ['all' => true],
 ];
-```
-
-4. Import the configuration
-
-```yaml
-# config/packages/sylius_banner.yaml
-imports:
-    - { resource: "@BlackSyliusBannerPlugin/Resources/config/app/config.yml" }
-```
-
-5. Import routing
-
-```yaml
-# config/routing/sylius_banner.yaml
-black_sylius_banner_shop:
-    resource: "@BlackSyliusBannerPlugin/Resources/config/app/routing/shop_routing.yml"
-
-black_sylius_banner_admin:
-    resource: "@BlackSyliusBannerPlugin/Resources/config/app/routing/admin_routing.yml"
-    prefix: /admin
-
-
 ```
 6. Execute migration
 
