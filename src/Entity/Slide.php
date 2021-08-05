@@ -10,8 +10,8 @@ use Sylius\Component\Resource\Model\TranslationInterface;
 class Slide implements SlideInterface, TranslatableInterface
 {
     use TranslatableTrait {
-        __construct as private initializeTranslationsCollection;
-        getTranslation as private doGetTranslation;
+        TranslatableTrait::__construct as private initializeTranslationsCollection;
+        TranslatableTrait::getTranslation as private doGetTranslation;
     }
 
     private $id;

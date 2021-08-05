@@ -2,7 +2,7 @@ black_sylius_banner_admin_banner:
     resource: |
         alias: black_sylius_banner.banner
         section: admin
-        templates: SyliusAdminBundle:Crud
+        templates: "@SyliusAdmin\\Crud"
         redirect: update
         grid: black_sylius_banner
         permission: true
