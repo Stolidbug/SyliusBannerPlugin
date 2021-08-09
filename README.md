@@ -19,7 +19,7 @@ The following instructions are compatible with Bootstrap and Webpack Encore. Thi
 ```yaml
 # config/packages/sylius_banner.yaml
 imports:
-    - { resource: "@BlackSyliusBannerPlugin/Resources/config/app/config.php" }
+    - { resource: "@BlackSyliusBannerPlugin/config/app/config.php" }
 ```
 
 3. Import routing
@@ -27,10 +27,10 @@ imports:
 ```yaml
 # config/routing/sylius_banner.yaml
 black_sylius_banner_shop:
-    resource: "@BlackSyliusBannerPlugin/Resources/config/routes/shop.yml"
+    resource: "@BlackSyliusBannerPlugin/config/routes/shop.yml"
 
 black_sylius_banner_admin:
-    resource: "@BlackSyliusBannerPlugin/Resources/config/routes/admin.yml"
+    resource: "@BlackSyliusBannerPlugin/config/routes/admin.yml"
     prefix: /admin
 
 ```
