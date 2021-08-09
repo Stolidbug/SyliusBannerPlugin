@@ -27,10 +27,10 @@ imports:
 ```yaml
 # config/routing/sylius_banner.yaml
 black_sylius_banner_shop:
-    resource: "@BlackSyliusBannerPlugin/config/routes/shop.yml"
+    resource: "@BlackSyliusBannerPlugin/config/routes/shop.yaml"
 
 black_sylius_banner_admin:
-    resource: "@BlackSyliusBannerPlugin/config/routes/admin.yml"
+    resource: "@BlackSyliusBannerPlugin/config/routes/admin.yaml"
     prefix: /admin
 
 ```

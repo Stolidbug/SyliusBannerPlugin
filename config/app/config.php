@@ -6,7 +6,6 @@ use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigura
 
 return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters = $containerConfigurator->parameters();
-
     $parameters->set('black_banner.uploader.filesystem', 'black_sylius_banner');
 
     $containerConfigurator->extension('doctrine', [
