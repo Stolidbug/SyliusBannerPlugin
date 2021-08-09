@@ -18,6 +18,10 @@ final class SlideTranslationType extends AbstractResourceType
                 'label' => 'black_sylius_banner.form.slide.content.label',
                 'required' => false,
             ])
+            ->add('url', UrlType::class, [
+                'label' => 'black_sylius_banner.form.slide.url.label',
+                'required' => false,
+            ])
         ;
     }
 }

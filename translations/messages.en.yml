@@ -18,3 +18,5 @@ black_sylius_banner:
                 label: Translations
             content:
                 label: Content
+            url:
+                label: Link

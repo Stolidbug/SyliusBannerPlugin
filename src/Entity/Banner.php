@@ -9,15 +9,15 @@ use Sylius\Component\Channel\Model\ChannelInterface;
 
 class Banner implements BannerInterface
 {
-    private $id;
+    private ?int $id;
 
-    private $code;
+    private ?string $code = null;
 
-    private $name;
+    private ?string $name;
 
-    private $channels;
+    private Collection $channels;
 
-    private $slides;
+    private Collection $slides;
 
     public function __construct()
     {

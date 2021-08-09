@@ -1,113 +1,125 @@
 <?php
 
-namespace Symfony\Component\DependencyInjection\Loader\Configurator;
+declare(strict_types=1);
 
-return static function (ContainerConfigurator $container) {
+use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
-    $container->parameters()
-        ->set('black_banner.uploader.filesystem', "black_sylius_banner");
+return static function (ContainerConfigurator $containerConfigurator): void {
+    $parameters = $containerConfigurator->parameters();
 
-    $container->extension('doctrine', [
+    $parameters->set('black_banner.uploader.filesystem', 'black_sylius_banner');
+
+    $containerConfigurator->extension('doctrine', [
         'orm' => [
             'auto_generate_proxy_classes' => '%kernel.debug%',
             'entity_managers' => [
                 'default' => [
                     'auto_mapping' => true,
-                ],
-            ],
-        ],
+                    'mappings' => [
+                        'BlackSyliusBannerPlugin' => [
+                            'type' => 'xml',
+                            'dir' => '../config/doctrine'
+                        ]
+                    ]
+                ]
+            ]
+        ]
     ]);
 
-    $container->extension('knp_gaufrette', [
+    $containerConfigurator->extension('knp_gaufrette', [
         'adapters' => [
             'black_sylius_banner' => [
                 'safe_local' => [
-                    'directory' => "%sylius_core.public_dir%/media/banner/",
-                    'create' => true,
-                ],
-            ],
+                    'directory' => '%sylius_core.public_dir%/media/banner/',
+                    'create' => true
+                ]
+            ]
         ],
         'filesystems' => [
             'black_sylius_banner' => [
-                'adapter' => "%black_banner.uploader.filesystem%",
-            ],
+                'adapter' => '%black_banner.uploader.filesystem%'
+            ]
         ],
-        'stream_wrapper' => null,
+        'stream_wrapper' => null
     ]);
 
-    $container->extension('liip_imagine', [
+    $containerConfigurator->extension('liip_imagine', [
         'loaders' => [
-                'black_sylius_banner' => [
-                    'stream' => [
-                        'wrapper' => "gaufrette://black_sylius_banner/"
-                    ],
-                ],
+            'black_sylius_banner' => [
+                'stream' => [
+                    'wrapper' => 'gaufrette://black_sylius_banner/'
+                ]
+            ]
         ],
         'filter_sets' => [
             'black_sylius_banner' => [
-                'data_loader' => "black_sylius_banner",
+                'data_loader' => 'black_sylius_banner',
                 'filters' => [
-                    'upscale' => [`min: [1200, 400]`],
-                    'thumbnail' => [`size: [1200, 400], mode: inbound`],
-                ],
-            ],
-        ],
+                    'upscale' => [
+                        'min' => [1200, 400]
+                    ],
+                    'thumbnail' => [
+                        'size' => [1200, 400],
+                        'mode' => 'inbound'
+                    ]
+                ]
+            ]
+        ]
     ]);
 
-    $container->extension('sylius_grid', [
+    $containerConfigurator->extension('sylius_grid', [
         'templates' => [
             'filter' => [
-                'banner_channel' => "@BlackSyliusBannerPlugin/Admin/Grid/Filter/channel.html.twig",
-            ],
+                'banner_channel' => '@BlackSyliusBannerPlugin/Admin/Grid/Filter/channel.html.twig']
         ],
         'grids' => [
             'black_sylius_banner' => [
                 'driver' => [
-                    'name' => "doctrine/orm",
+                    'name' => 'doctrine/orm',
                     'options' => [
-                        'class' => 'expr:parameter("black_sylius_banner.model.banner.class")',
-                    ],
+                        'class' => 'expr:parameter("black_sylius_banner.model.banner.class")'
+                    ]
                 ],
                 'fields' => [
                     'code' => [
                         'type' => 'string',
-                        'label' => 'sylius.ui.code',
+                        'label' => 'sylius.ui.code'
                     ],
                     'name' => [
                         'type' => 'string',
-                        'label' => 'sylius.ui.code',
-                    ],
+                        'label' => 'sylius.ui.name'
+                    ]
                 ],
                 'filters' => [
                     'code' => [
-                        'type' => 'string',
                         'label' => 'sylius.ui.code',
+                        'type' => 'string'
                     ],
                     'name' => [
-                        'type' => 'string',
-                        'label' => 'sylius.ui.code',
+                        'label' => 'sylius.ui.name',
+                        'type' => 'string'
                     ],
                     'channel' => [
-                        'type' => 'string',
-                        'label' => 'sylius.ui.channel',
-                    ],
+                        'type' => 'banner_channel',
+                        'label' => 'sylius.ui.channel'
+                    ]
                 ],
                 'actions' => [
                     'main' => [
                         'create' => [
-                            'type' => 'create',
-                        ],
+                            'type' => 'create'
+                        ]
                     ],
                     'item' => [
                         'update' => [
-                            'type' => 'create',
+                            'type' => 'update'
                         ],
                         'delete' => [
-                            'type' => 'delete',
-                        ],
-                    ],
-                ],
-            ],
-        ],
+                            'type' => 'delete'
+                        ]
+                    ]
+                ]
+            ]
+        ]
     ]);
 };

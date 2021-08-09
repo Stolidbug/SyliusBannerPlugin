@@ -7,11 +7,11 @@ use Sylius\Component\Resource\Model\AbstractTranslation;
 
 class SlideTranslation extends AbstractTranslation implements SlideTranslationInterface
 {
-    private $id;
+    private ?int $id;
 
-    private $content;
+    private ?string $content = null;
 
-    private $link;
+    private ?string $link;
 
     public function getId()
     {

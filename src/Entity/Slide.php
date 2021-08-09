@@ -14,13 +14,13 @@ class Slide implements SlideInterface, TranslatableInterface
         TranslatableTrait::getTranslation as private doGetTranslation;
     }
 
-    private $id;
+    private ?int $id;
 
-    private $banner;
+    private ?BannerInterface $banner;
 
-    private $file;
+    private ?\SplFileInfo $file;
 
-    private $path;
+    private ?string $path = null;
 
     public function __construct()
     {
@@ -32,7 +32,7 @@ class Slide implements SlideInterface, TranslatableInterface
         return $this->id;
     }
 
-    public function setId($id): void
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }
@@ -42,7 +42,7 @@ class Slide implements SlideInterface, TranslatableInterface
         return $this->banner;
     }
 
-    public function setBanner($banner): void
+    public function setBanner(?BannerInterface $banner): void
     {
         $this->banner = $banner;
     }

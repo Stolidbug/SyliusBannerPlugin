@@ -10,7 +10,7 @@ trait BannerChannel
     /**
      * @ORM\OneToOne(targetEntity="Black\SyliusBannerPlugin\Entity\BannerInterface", mappedBy="channel")
      */
-    protected $banner;
+    protected ?BannerInterface $banner;
 
     public function getBanner(): ?BannerInterface
     {
