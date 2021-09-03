@@ -1,7 +1,10 @@
 {
     "name": "black/sylius-banner-plugin",
     "type": "sylius-plugin",
-    "keywords": ["sylius", "sylius-plugin"],
+    "keywords": [
+        "sylius",
+        "sylius-plugin"
+    ],
     "description": "Show Banner/slider/carousel in your shop",
     "license": "EUPL-1.2",
     "authors": [
@@ -13,7 +16,7 @@
     ],
     "require": {
         "php": "^7.4 || ^8.0",
-        "sylius/sylius": "~1.9 || ~1.10"
+        "sylius/sylius": "~1.9.0 || ~1.10.0"
     },
     "require-dev": {
         "behat/behat": "^3.6.1",
@@ -45,22 +48,35 @@
         "symfony/web-profiler-bundle": "^4.4 || ^5.2",
         "vimeo/psalm": "4.7.1"
     },
-    "prefer-stable": true,
-    "autoload": {
-        "psr-4": {
-            "Black\\SyliusBannerPlugin\\": "src",
-            "Tests\\Black\\SyliusBannerPlugin\\": "tests"
-        }
-    },
-    "autoload-dev": {
-        "classmap": ["tests/Application/Kernel.php"]
-    },
+
     "config": {
         "sort-packages": true
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "1.10-dev"
         }
+    },
+    "autoload": {
+        "psr-4": {
+            "Black\\SyliusBannerPlugin\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "classmap": ["tests/Application/Kernel.php"],
+        "psr-4": {
+            "Black\\Tests\\SyliusBannerPlugin\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php bin/create_node_symlink.php"
+        ],
+        "post-update-cmd": [
+            "php bin/create_node_symlink.php"
+        ],
+        "post-create-project-cmd": [
+            "php bin/create_node_symlink.php"
+        ]
     }
 }

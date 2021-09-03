@@ -1,2 +1,0 @@
-imports:
-  - { resource: "@BlackSyliusCookieAlertPlugin/config/app/config.yml" }

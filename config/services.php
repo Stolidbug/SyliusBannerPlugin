@@ -19,7 +19,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $services
         ->set('black_sylius_banner.slide_uploader.gaufrette.filesystem', Filesystem::class)
         ->args([
-            '%black_banner.uploader.filesystem%'
+            '%sylius.uploader.filesystem%'
         ])
         ->factory([
             service('knp_gaufrette.filesystem_map'), 'get'

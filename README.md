@@ -25,7 +25,7 @@ imports:
 3. Import routing
 
 ```yaml
-# config/routing/sylius_banner.yaml
+# config/routes/sylius_banner.yaml
 black_sylius_banner_shop:
     resource: "@BlackSyliusBannerPlugin/config/routes/shop.yaml"
 
@@ -70,7 +70,35 @@ bin/console doctrine:migrations:migrate
 
 __Tip:__ Replace the content of `Homepage/_banner.html.twig` with this snippet and use template
 events!
+## Quickstart Installation (docker)
 
+1. Run `composer create-project pocky/modern-plugin-skeleton ProjectName` or clone this project
+
+2. From the plugin skeleton root directory, run the following commands:
+
+```bash
+$ sudo chmod -Rf 777 tests/Application/var
+$	docker-compose exec php php -d memory_limit=-1 /usr/bin/composer install
+$	docker-compose exec nodejs yarn --cwd tests/Application install
+$	docker-compose exec php tests/Application/bin/console doctrine:database:create --if-not-exists -vvv
+$	docker-compose exec php tests/Application/bin/console doctrine:schema:create -vvv
+$	docker-compose exec php tests/Application/bin/console assets:install tests/Application/public -vvv
+$	docker-compose exec nodejs yarn --cwd tests/Application build
+$	docker-compose exec php tests/Application/bin/console cache:warmup -vvv
+$	docker-compose exec php tests/Application/bin/console sylius:fixtures:load -n
+```
+
+### Quality tools
+
+```bash
+$ docker-compose exec php composer validate --ansi --strict
+$ docker-compose exec php vendor/bin/phpstan analyse -c phpstan.neon -l max src/
+$ docker-compose exec php vendor/bin/psalm
+$ docker-compose exec php vendor/bin/phpspec run --ansi -f progress --no-interaction
+$ docker-compose exec php vendor/bin/phpunit --colors=always
+$ docker-compose exec php vendor/bin/behat --profile docker --colors --strict -vvv --no-interaction
+``` 
+__ProTip__ use `Makefile` ;)
 ## Override
 
 This plugin use the default [bootstrap carousel](https://getbootstrap.com/docs/4.0/components/carousel/). You don't need any configuration.
