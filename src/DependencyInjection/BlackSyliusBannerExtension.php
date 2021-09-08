@@ -8,6 +8,7 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Webmozart\Assert\Assert;
 
 final class BlackSyliusBannerExtension extends AbstractResourceExtension
 {
@@ -18,6 +19,10 @@ final class BlackSyliusBannerExtension extends AbstractResourceExtension
     {
         $config = $this->processConfiguration($this->getConfiguration([], $container), $configs);
         $loader = new PhpFileLoader($container, new FileLocator(__DIR__ . '/../../config'));
+
+        Assert::string($config['driver']);
+        Assert::isArray($config['resources']);
+
         $this->registerResources('black_sylius_banner', $config['driver'], $config['resources'], $container);
 
         $loader->load('services.php');

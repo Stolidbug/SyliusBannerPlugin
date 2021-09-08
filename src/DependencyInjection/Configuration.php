@@ -19,14 +19,26 @@ use Black\SyliusBannerPlugin\Entity\SlideInterface;
 use Black\SyliusBannerPlugin\Entity\SlideTranslation;
 use Black\SyliusBannerPlugin\Entity\SlideTranslationInterface;
 
+/**
+ * @psalm-suppress UnusedVariable
+ * @psalm-suppress PossiblyNullReference
+ * @psalm-suppress MixedMethodCall
+ * @psalm-suppress UnusedMethodCall
+ * @psalm-suppress PossiblyUndefinedMethod
+ */
 final class Configuration implements ConfigurationInterface
 {
     /**
      * @psalm-suppress UnusedVariable
+     * @psalm-suppress PossiblyNullReference
+     * @psalm-suppress MixedMethodCall
+     * @psalm-suppress UnusedMethodCall
+     * @psalm-suppress PossiblyUndefinedMethod
      */
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('black_sylius_banner_plugin');
+        /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
@@ -40,6 +52,13 @@ final class Configuration implements ConfigurationInterface
         return $treeBuilder;
     }
 
+    /**
+     * @psalm-suppress UnusedVariable
+     * @psalm-suppress PossiblyNullReference
+     * @psalm-suppress MixedMethodCall
+     * @psalm-suppress UnusedMethodCall
+     * @psalm-suppress PossiblyUndefinedMethod
+     */
     private function addResourcesSection(ArrayNodeDefinition $node): void
     {
         $node

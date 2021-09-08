@@ -15,7 +15,6 @@ final class BannerSubscriber implements EventSubscriberInterface
     {
         return [
             FormEvents::PRE_SET_DATA => 'preSetData',
-            FormEvents::PRE_SUBMIT => 'preSubmit',
         ];
     }
 
@@ -24,14 +23,5 @@ final class BannerSubscriber implements EventSubscriberInterface
         $product = $event->getData();
 
         Assert::isInstanceOf($product, BannerInterface::class);
-    }
-
-    public function preSubmit(FormEvent $event): void
-    {
-        $data = $event->getData();
-
-        if (empty($data) || !array_key_exists('code', $data)) {
-            return;
-        }
     }
 }

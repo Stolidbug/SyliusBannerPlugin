@@ -21,7 +21,7 @@ return static function (ContainerConfigurator $containerConfigurator): void {
         ])
         ->tag('kernel.event_listener',[
             'event' => 'black_sylius_banner.banner.pre_update',
-            'method' => 'uploadSides'
+            'method' => 'uploadSlides'
         ]);
 
     $services

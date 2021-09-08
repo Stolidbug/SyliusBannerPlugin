@@ -31,14 +31,10 @@ black_sylius_banner_shop:
 
 black_sylius_banner_admin:
     resource: "@BlackSyliusBannerPlugin/config/routes/admin.yaml"
-    prefix: /admin
-
+    prefix: '/%sylius_admin.path_name%'
 ```
-4. Add the bundle and dependencies in your `composer.json`
 
-`composer require black/sylius-banner-plugin:^1.0.0@dev`
-
-5. Register the bundle:
+4. Register the bundle:
 
 ```php
 <?php
@@ -50,6 +46,11 @@ return [
     Black\SyliusBannerPlugin\BlackSyliusBannerPlugin::class => ['all' => true],
 ];
 ```
+
+5. Add the bundle and dependencies in your `composer.json`
+
+`composer require black/sylius-banner-plugin:^1.0.0@dev`
+
 6. Execute migration
 
 ```bash
