@@ -22,13 +22,13 @@ use Black\SyliusBannerPlugin\Uploader\SlideUploaderInterface;
 
 final class SlidesRemoveListener
 {
-    private $slideUploader;
+    private SlideUploaderInterface $slideUploader;
 
-    private $cacheManager;
+    private CacheManager $cacheManager;
 
-    private $filterManager;
+    private FilterManager $filterManager;
 
-    private $imagesToDelete = [];
+    private array $imagesToDelete = [];
 
     public function __construct(
         SlideUploaderInterface $slideUploader,
@@ -40,6 +40,9 @@ final class SlidesRemoveListener
         $this->filterManager = $filterManager;
     }
 
+    /**
+     * @psalm-suppress MixedArrayAssignment
+     */
     public function onFlush(OnFlushEventArgs $event): void
     {
         foreach ($event->getEntityManager()->getUnitOfWork()->getScheduledEntityDeletions() as $entityDeletion) {
@@ -59,8 +62,15 @@ final class SlidesRemoveListener
         }
     }
 
+    /**
+     * @psalm-suppress MixedArgumentTypeCoercion
+     */
     public function postFlush(PostFlushEventArgs $event): void
     {
+        /**
+         * @var int $key
+         * @var string $imagePath
+         */
         foreach ($this->imagesToDelete as $key => $imagePath) {
             $this->slideUploader->remove($imagePath);
             $this->cacheManager->remove($imagePath, array_keys($this->filterManager->getFilterConfiguration()->all()));

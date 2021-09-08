@@ -12,11 +12,11 @@ use Black\SyliusBannerPlugin\Entity\Banner;
 
 final class ShowBannerAction
 {
-    private $repository;
+    private BannerRepositoryInterface $repository;
 
-    private $context;
+    private ChannelContextInterface $context;
 
-    private $environment;
+    private Environment $environment;
 
     public function __construct(
         BannerRepositoryInterface $repository,
@@ -30,11 +30,11 @@ final class ShowBannerAction
 
     public function __invoke(string $code, Request $request): Response
     {
-        $template = $request->query->get('template');
+        $template = "@BlackSyliusBannerPlugin/_banner.html.twig";
         $banner = $this->repository->findBannerForChannel($code, $this->context->getChannel());
 
-        if (null === $template) {
-            $template = '@BlackSyliusBannerPlugin/_banner.html.twig';
+        if (null !== $request->query->get('template')) {
+            $template = (string) $request->query->get('template');
         }
 
         return new Response($this->environment->render($template, [

@@ -1,2 +1,2 @@
 imports:
-  - { resource: "@BlackSyliusCookieAlertPlugin/config/app/config.yml" }
+    - { resource: "@BlackSyliusBannerPlugin/config/app/config.php" }

@@ -9,14 +9,21 @@ use Sylius\Component\Channel\Model\ChannelInterface;
 
 class Banner implements BannerInterface
 {
+    /** @psalm-suppress PropertyNotSetInConstructor */
     private ?int $id;
 
     private ?string $code = null;
 
-    private ?string $name;
+    private ?string $name = null;
 
+    /**
+     * @var Collection<int, ChannelInterface>
+     */
     private Collection $channels;
 
+    /**
+     * @var Collection<int, SlideInterface>
+     */
     private Collection $slides;
 
     public function __construct()
@@ -25,7 +32,7 @@ class Banner implements BannerInterface
         $this->slides = new ArrayCollection();
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -35,7 +42,7 @@ class Banner implements BannerInterface
         return $this->name;
     }
 
-    public function setName($name): void
+    public function setName(?string $name): void
     {
         $this->name = $name;
     }
@@ -50,11 +57,17 @@ class Banner implements BannerInterface
         $this->code = $code;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getChannels(): Collection
     {
         return $this->channels;
     }
 
+    /**
+     * @inheritDoc
+     */
     public function getSlides(): Collection
     {
         return $this->slides;

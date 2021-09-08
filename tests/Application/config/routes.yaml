@@ -1,6 +1,0 @@
-black_sylius_banner_shop:
-  resource: "@BlackSyliusBannerPlugin/Resources/config/routes/shop.yml"
-
-black_sylius_banner_admin:
-  resource: "@BlackSyliusBannerPlugin/Resources/config/routes/admin.yml"
-  prefix: /admin

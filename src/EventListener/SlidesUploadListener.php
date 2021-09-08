@@ -21,7 +21,7 @@ use Webmozart\Assert\Assert;
 
 final class SlidesUploadListener
 {
-    private $uploader;
+    private SlideUploaderInterface $uploader;
 
     public function __construct(SlideUploaderInterface $uploader)
     {
@@ -41,7 +41,6 @@ final class SlidesUploadListener
     {
         $slides = $subject->getSlides();
 
-        /** @var SlideInterface $slide */
         foreach ($slides as $slide) {
             if ($slide->hasFile()) {
                 $this->uploader->upload($slide);

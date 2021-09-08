@@ -14,11 +14,12 @@ class Slide implements SlideInterface, TranslatableInterface
         TranslatableTrait::getTranslation as private doGetTranslation;
     }
 
+    /** @psalm-suppress PropertyNotSetInConstructor */
     private ?int $id;
 
-    private ?BannerInterface $banner;
+    private ?BannerInterface $banner = null;
 
-    private ?\SplFileInfo $file;
+    private ?\SplFileInfo $file = null;
 
     private ?string $path = null;
 
@@ -27,7 +28,7 @@ class Slide implements SlideInterface, TranslatableInterface
         $this->initializeTranslationsCollection();
     }
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -37,7 +38,7 @@ class Slide implements SlideInterface, TranslatableInterface
         $this->id = $id;
     }
 
-    public function getBanner()
+    public function getBanner(): ?BannerInterface
     {
         return $this->banner;
     }
@@ -97,7 +98,10 @@ class Slide implements SlideInterface, TranslatableInterface
         return $this->getTranslation()->getLink();
     }
 
-    public function getTranslation(?string $locale = null): TranslationInterface
+    /**
+     * @return SlideTranslationInterface
+     */
+    public function getTranslation(?string $locale = null): SlideTranslationInterface
     {
         /** @var SlideTranslationInterface $translation */
         $translation = $this->doGetTranslation($locale);
@@ -105,7 +109,7 @@ class Slide implements SlideInterface, TranslatableInterface
         return $translation;
     }
 
-    protected function createTranslation(): SlideTranslationInterface
+    protected function createTranslation(): TranslationInterface
     {
         return new SlideTranslation();
     }

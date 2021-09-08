@@ -20,13 +20,13 @@ use Webmozart\Assert\Assert;
 
 class SlideUploader implements SlideUploaderInterface
 {
-    protected $filesystem;
+    protected Filesystem $filesystem;
 
-    protected $slidePathGenerator;
+    protected SlidePathGeneratorInterface $slidePathGenerator;
 
     public function __construct(
         Filesystem $filesystem,
-        SlidePathGeneratorInterface $slidePathGenerator = null
+        SlidePathGeneratorInterface $slidePathGenerator
     ) {
         $this->filesystem = $filesystem;
         $this->slidePathGenerator = $slidePathGenerator;
@@ -39,24 +39,27 @@ class SlideUploader implements SlideUploaderInterface
         }
 
         $file = $slide->getFile();
-
-        /** @var File $file */
         Assert::isInstanceOf($file, File::class);
 
-        if (null !== $slide->getPath() && $this->has($slide->getPath())) {
-            $this->remove($slide->getPath());
+        if (null !== $slide->getPath() && true === $this->has($slide->getPath())) {
+            $path = $slide->getPath();
+            /** @phpstan-ignore-next-line  */
+            Assert::notNull($path);
+
+            $this->remove($path);
         }
 
         do {
+            /** @psalm-suppress PossiblyNullReference $path */
             $path = $this->slidePathGenerator->generate($slide);
-        } while ($this->isAdBlockingProne($path) || $this->filesystem->has($path));
+        } while ($this->isAdBlockingProne($path) || $this->has($path));
 
         $slide->setPath($path);
 
-        $this->filesystem->write(
-            $slide->getPath(),
-            file_get_contents($slide->getFile()->getPathname())
-        );
+        $file = file_get_contents($file->getPathname());
+        Assert::notFalse($file);
+
+        $this->filesystem->write($path, $file);
     }
 
     public function remove(string $path): bool
@@ -68,8 +71,12 @@ class SlideUploader implements SlideUploaderInterface
         return false;
     }
 
-    private function has(string $path): bool
+    private function has(?string $path): bool
     {
+        if (null === $path) {
+            return false;
+        }
+
         return $this->filesystem->has($path);
     }
 

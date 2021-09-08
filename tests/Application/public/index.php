@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Black\Tests\SyliusCookieAlertPlugin\Application\Kernel;
+use Black\Tests\SyliusBannerPlugin\Application\Kernel;
 use Symfony\Component\ErrorHandler\Debug;
 use Symfony\Component\HttpFoundation\Request;
 

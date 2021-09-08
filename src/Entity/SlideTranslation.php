@@ -7,13 +7,14 @@ use Sylius\Component\Resource\Model\AbstractTranslation;
 
 class SlideTranslation extends AbstractTranslation implements SlideTranslationInterface
 {
+    /** @psalm-suppress PropertyNotSetInConstructor */
     private ?int $id;
 
     private ?string $content = null;
 
-    private ?string $link;
+    private ?string $link = null;
 
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -37,6 +38,4 @@ class SlideTranslation extends AbstractTranslation implements SlideTranslationIn
     {
         $this->link = $link;
     }
-
-
 }

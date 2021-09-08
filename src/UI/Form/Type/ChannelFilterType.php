@@ -8,17 +8,18 @@ use Sylius\Component\Core\Model\ChannelInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Webmozart\Assert\Assert;
 
 class ChannelFilterType extends AbstractType
 {
-    private $channelRepository;
+    private ChannelRepositoryInterface $channelRepository;
 
     public function __construct(ChannelRepositoryInterface $channelRepository)
     {
         $this->channelRepository = $channelRepository;
     }
 
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add('channel', ChoiceType::class, [
             'choices' => $this->getChannelsList(),
@@ -31,7 +32,12 @@ class ChannelFilterType extends AbstractType
     {
         $channels = [];
 
+        /** @var ChannelInterface $channel */
         foreach ($this->channelRepository->findBy(['enabled' => true]) as $channel) {
+            Assert::notNull($channel->getName());
+            Assert::notNull($channel->getCode());
+
+            /** @psalm-suppress PossiblyNullArrayOffset */
             $channels[$channel->getName()] = $channel->getCode();
         }
 
